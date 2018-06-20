@@ -1,0 +1,255 @@
+﻿@model NorthWindWeb.Models.UserLogin
+
+@*@{
+        ViewBag.Title = "Login";
+    }*@
+
+
+@*@Html.EditorForModel()
+
+    <button type="submit" name="SignIn" value="登入">確定</button>
+    <button type="reset">取消</button>*@
+@*@{
+        Html.EnableClientValidation(true);
+        Html.EnableUnobtrusiveJavaScript(true);
+    }*@
+
+
+@*@using (Html.BeginForm("Login", "User"))
+    {
+        <table class="table table-bordered">
+            <tr>
+                <td>帳號</td>
+                <td>@Html.TextBoxFor(m => m.UserID)</td>
+                <td>@Html.ValidationMessageFor(m => m.UserID)</td>
+            </tr>
+            <tr>
+                <td>密碼</td>
+                <td>@Html.PasswordFor(m=>m.Password)</td>
+                <td>@Html.ValidationMessageFor(m=>m.Password)</td>
+            </tr>
+            <tr>
+                <td colspan="2">@Html.CheckBox("IsPersistent", false) 保持登入狀態</td>
+            </tr>
+            <tr>
+                <td><button type="submit" name="SignIn" value="登入">確定</button></td>
+                <td><button type="reset">取消</button></td>
+            </tr>
+        </table>
+    }*@
+
+
+@*<table class="table table-bordered">
+        <tr>
+            <td width="150px">@Html.LabelFor(m => m.UserID)</td>
+            <td>@Html.TextBoxFor(m => m.UserID, new { @class = "form-group input-lg", }) @Html.ValidationMessageFor(m => m.UserID, "", new { @class = "text-danger" })</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.Password)</td>
+            <td>@Html.PasswordFor(m => m.Password, new { @class = "form-group input-lg" }) @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })</td>
+        </tr>
+        <tr>
+            <td colspan="2">@Html.CheckBoxFor(m => m.IsPersistent) @Html.LabelFor(m => m.IsPersistent)</td>
+        </tr>
+        <tr>
+            <td><button class=" btn btn-success" type="submit" name="SignIn" value="登入">確定</button></td>
+            <td><button class=" btn btn-success" type="reset">取消</button></td>
+        </tr>
+    </table>*@
+
+@*@using (Html.BeginForm("Login", "User", FormMethod.Post, new { id = "LoginForm" }))
+{
+    <div class="container">
+        <div class="row mx-auto">
+            <div class="col-md-6 col-md-offset-3" id="LoginFormsize">
+                <h2>會員登入</h2>
+                <h2>
+                    <hr class="colorgraph">
+                </h2>
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <div class="form-group">
+                            <h4> @Html.LabelFor(m => m.UserID)</h4>
+                        </div>
+                    </div>
+                    <div class="col-md-8 col-md-offset-2">
+                        <div class="form-group">
+                            <div class="col-md-12 input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span> @Html.TextBoxFor(m => m.UserID, new { @class = "form-control" }) @Html.ValidationMessageFor(m => m.UserID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <div class="form-group">
+                            <h4> @Html.LabelFor(m => m.Password)</h4>
+                        </div>
+                    </div>
+                    <div class="col-md-8 col-md-offset-2">
+                        <div class="form-group">
+                            <div class="col-md-12 input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-hand-right"></i></span> @Html.PasswordFor(m => m.Password, new { @class = "form-control" }) @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-2 col-md-2"></div>
+                </div>
+                <hr class="colorgraph">
+                <div class="row">
+                    <div class="col-md-6">
+                        <button class=" btn btn-primary btn-block btn-lg" type="submit" name="SignIn" value="登入">確定</button>
+                    </div>
+                    <div class="col-md-6">
+                        <button class=" btn btn-success btn-block btn-lg" type="reset">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}*@
+
+<div class="container">
+    @using (Html.BeginForm("Login", "User", FormMethod.Post, new { id = "LoginForm",@class="well form-horizontal center-block" }))
+    {
+        @*<form class="well form-horizontal center-block" action=" " method="post" id="contactform">*@
+        <!-- Form Name -->
+    <h2>會員登入</h2>
+    <hr class="colorgraph"></hr>
+    <!-- Text input-->
+    <div class="form-group row">
+        <label class="col-md-2 control-label"> @Html.LabelFor(m => m.UserID)</label>
+        <div class="col-md-8 inputGroupContainer">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                @Html.TextBoxFor(m => m.UserID, new { @class = "form-control" }) @Html.ValidationMessageFor(m => m.UserID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-md-2 control-label">@Html.LabelFor(m => m.Password)</label>
+        <div class="col-md-8 inputGroupContainer">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-hand-right"></i></span>
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control" }) @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <!--button-->
+    <div class="row">
+        <div class="col-md-12"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <button class=" btn btn-primary btn-block" type="submit" name="SignIn" value="登入">Sign in</button>
+        </div>
+        </div>
+    @*</form>*@
+    }
+</div>
+    </div><!-- /.container -->
+    @section scripts{
+        <script>
+            $(document).ready(function () {
+                $('#LoginForm').formValidation({
+                    framework: 'bootstrap',
+                    icon: {
+                        valid: 'glyphicon glyphicon-ok',
+                        invalid: 'glyphicon glyphicon-remove',
+                        validating: 'glyphicon glyphicon-refresh'
+                    },
+                    fields: {
+                        UserID: {
+                            validators: {
+                                notEmpty: {
+                                    message: '帳號為必填欄位'
+                                },
+                                stringLength: {
+                                    min: 4,
+                                    max: 6,
+                                    message: '帳號最少需要4個字元，最大6個字元'
+                                },
+                                regexp: {
+                                    regexp: /^[a-zA-Z0-9_\.]+$/,
+                                    message: 'The account can only consist of alphabetical, number, dot and underscore'
+                                }
+                            }
+                        },
+                        Password: {
+                            validators: {
+                                notEmpty: {
+                                    message: '密碼為必填欄位'
+                                },
+                                different: {
+                                    field: 'account',
+                                    message: '密碼不可與使用者名稱相同'
+                                }
+                            }
+                        }
+                    }
+                });
+            });
+        </script>
+    }
+
+    @*@using (Html.BeginForm("Login", "User", FormMethod.Post, new { id = "LoginForm" }))
+        {
+            <div class="container">
+                <fieldset>
+                    <div class="row mx-auto">
+                        <div class="col-md-6 col-md-offset-3" id="LoginFormsize">
+                            <h2>會員登入</h2>
+                            <h2>
+                                <hr class="colorgraph">
+                            </h2>
+                            <div class="row">
+                                <div class="col-md-8 col-md-offset-2">
+                                    <div class="form-group">
+                                        <h4> @Html.LabelFor(m => m.UserID)</h4>
+                                    </div>
+                                </div>
+                                <div class="col-md-8 col-md-offset-2">
+                                    <div class="form-group">
+                                        <div class="col-md-12 input-group">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span> @Html.TextBoxFor(m => m.UserID, new { @class = "form-control" }) @Html.ValidationMessageFor(m => m.UserID, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8 col-md-offset-2">
+                                    <div class="form-group">
+                                        <h4> @Html.LabelFor(m => m.Password)</h4>
+                                    </div>
+                                </div>
+                                <div class="col-md-8 col-md-offset-2">
+                                    <div class="form-group">
+                                        <div class="col-md-12 input-group">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-hand-right"></i></span> @Html.PasswordFor(m => m.Password, new { @class = "form-control" }) @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-2 col-md-2"></div>
+                            </div>
+                            <hr class="colorgraph">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <button class=" btn btn-primary btn-block btn-lg" type="submit" name="SignIn" value="登入">確定</button>
+                                </div>
+                                <div class="col-md-6">
+                                    <button class=" btn btn-success btn-block btn-lg" type="reset">取消</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+        }*@
+
+
+

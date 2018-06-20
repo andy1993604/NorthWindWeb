@@ -1,0 +1,83 @@
+﻿@model NorthWindWeb.Models.Customer
+@{
+                /**/
+
+
+                ViewBag.Title = "Insert";
+                Layout = null;
+}
+@using (Html.BeginForm("Add", "Customer", FormMethod.Post, new { id = "AddForm", @class = "well form-horizontal" }))
+{
+<div class="form-group">
+    <div class="col-md-2">
+        @Html.LabelFor(m => m.CustomerID, new { @class = "control-label" })
+    </div>
+    <div class="col-md-4">
+        @Html.TextBoxFor(m => m.CustomerID, new { @class = "form-control input-sm" })
+    </div>
+    <div class="col-md-2">
+        @Html.LabelFor(m => m.CompanyName, new { @class = "control-label" })
+    </div>
+    <div class="col-md-4">
+        @Html.TextBoxFor(m => m.CompanyName, new { @class = "form-control input-sm" })
+    </div>
+</div>
+
+}
+@*<table class="table table-bordered">
+        <tr>
+            <td>@Html.LabelFor(m => m.CustomerID)</td>
+            <td>@Html.TextBoxFor(m => m.CustomerID,new { @class = "form-control input-sm" })</td>
+            <td>@Html.LabelFor(m => m.CompanyName)</td>
+            <td>@Html.TextBoxFor(m => m.CompanyName, new { @class = "form-control" })</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.ContactName)</td>
+            <td>@Html.TextBoxFor(m => m.ContactName, new { @class = "form-control" })</td>
+            <td>@Html.LabelFor(m => m.ContactTitle)</td>
+            <td>@Html.TextBoxFor(m => m.ContactTitle, new { @class = "form-control" })</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.Address)</td>
+            <td>@Html.TextBoxFor(m => m.Address, new { @class = "form-control" })</td>
+            <td>@Html.LabelFor(m => m.City)</td>
+            <td>@Html.TextBoxFor(m => m.City, new { @class = "form-control" })</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.Region)</td>
+            <td>@Html.TextBoxFor(m => m.Region, new { @class = "form-control" })</td>
+            <td>@Html.LabelFor(m => m.PostalCode)</td>
+            <td>@Html.TextBoxFor(m => m.PostalCode, new { @class = "form-control" })</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.Country)</td>
+            <td>@Html.TextBoxFor(m => m.Country, new { @class = "form-control" })</td>
+            <td>@Html.LabelFor(m => m.Phone)</td>
+            <td>@Html.TextBoxFor(m => m.Phone, new { @class = "form-control" })</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.Fax)</td>
+            <td>@Html.TextBoxFor(m => m.Fax, new { @class = "form-control" })</td>
+        </tr>
+    </table>*@
+
+<div class="row">
+    <div class="col-md-4 col-md-offset-4 text-center">
+        <button class="btn btn-success" name="SignIn" id="btnCadd">新增</button>
+    </div>
+</div>
+
+
+
+<script>
+    $("#btnCadd").click(function (e) {
+        //e.preventdefault();
+        var param = $("#AddForm").serializeArray();
+        $.ajax({
+            type: 'post',
+            data: JSON.stringify(param),
+            contentType: 'application/json',
+            url: '/Customer/add'
+        }).done(function (result) { alert(result.staus) });
+    });
+</script>

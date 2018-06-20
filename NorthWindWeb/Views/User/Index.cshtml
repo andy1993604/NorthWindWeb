@@ -1,0 +1,153 @@
+﻿@model NorthWindWeb.Models.Customer_Query
+@{
+    ViewBag.Title = "Index";
+}
+@{
+    Layout = "~/Views/Shared/_LayoutNorthWind.cshtml";
+}
+@section scripts{
+    <script>
+        var aUrl = function (e) {
+            var itm = e.item;
+            var attr = $(itm).attr('url');
+
+            if (typeof attr !== typeof undefined && attr !== false) {
+                window.location = attr;
+            }
+        }
+        $('#time').kendoPanelBar(
+            // access an existing PanelBar instance
+            {
+                select: aUrl
+            }
+        );
+
+        function objectifyForm(formArray) {
+            //serialize data function
+            var returnArray = {};``
+            for (var i = 0; i < formArray.length; i++) {
+                returnArray[formArray[i]['name']] = formArray[i]['value'];
+            }
+            return returnArray;
+        }
+        //KendoGrid
+        $("#grid").kendoGrid({
+            pageable: true,
+            columns: [
+                { field: "CustomerID", title: "客戶編號" },
+                { field: "CompanyName", title: "公司名稱" },
+                { field: "ContactName", title: "連絡人姓名" },
+                { field: "ContactTitle", title: "連絡人職稱" },
+                {
+                    command: [{ name: 'edit', text: '編輯' },
+                    { name: 'destroy', text: '刪除' }]
+                }]
+        });
+        //Button Query function
+        $("#btnQuery").on("click", function () {
+            var DataSource = new kendo.data.DataSource({
+                transport: {
+                    read: {
+                        url: "@Url.Action("Query","Customer")",
+                        contentType: "application/json",
+                        cache: false,
+                        type: "POST",
+                        async: false,
+
+                    },
+                    parameterMap: function (options) {
+                        var jobj = objectifyForm($('#QueryForm').serializeArray());
+                        return JSON.stringify(jobj);
+                    }
+                },
+                pageSize: 10
+            });
+            $("#grid").data('kendoGrid').setDataSource(DataSource);
+        });
+
+        //Button Clear function
+        $("#btnClear").on("click", function () {
+            document.getElementById("QueryForm").reset(),
+                $('#grid').data('kendoGrid').dataSource.data([]);  
+        });
+
+        //Button Add function
+        $("#btnadd").click(function () {
+            $("#AddWindow").data("kendoWindow").center().open();
+  
+        });
+
+        //Kendowindow Add Setting
+          $(document).ready(function () {
+                   $("#AddWindow").kendoWindow({
+            content: {
+               url: "@Url.Action("Insert", "Customer")"
+            },
+            width: "600px",
+            modal: true,
+            title: "新增客戶資料",
+                visible: false,
+                actions: [
+                    "Pin",
+                    "Minimize",
+                    "Maximize",
+                    "Close"
+                ]
+              });                
+        });
+    </script>
+}
+<h1>客戶查詢</h1>
+@using (Html.BeginForm("index", "Core", FormMethod.Post, new { id = "QueryForm" }))
+{
+    <table class="table table-bordered">
+        <tr>
+            <td>@Html.LabelFor(m => m.CustomerID)</td>
+            <td>@Html.TextBoxFor(m => m.CustomerID,new {@class ="form-control"}) @Html.ValidationMessageFor(m => m.CustomerID)</td>
+            <td>@Html.LabelFor(m => m.CompanyName)</td>
+            <td>@Html.TextBoxFor(m => m.CompanyName,new {@class ="form-control" }) @Html.ValidationMessageFor(m => m.CompanyName)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.ContactName)</td>
+            <td>@Html.TextBoxFor(m => m.ContactName,new {@class ="form-control"})@Html.ValidationMessageFor(m => m.ContactName)</td>
+            <td>@Html.LabelFor(m => m.ContactTitle)</td>
+            <td>@Html.TextBoxFor(m => m.ContactTitle, new {@class ="form-control"})@Html.ValidationMessageFor(m => m.ContactTitle)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.Address)</td>
+            <td>@Html.TextBoxFor(m => m.Address,new {@class="form-control" })@Html.ValidationMessageFor(m => m.Address)</td>
+            <td>@Html.LabelFor(m => m.City)</td>
+            <td>@Html.TextBoxFor(m => m.City,new { @class="form-control"})@Html.ValidationMessageFor(m => m.City)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.Region)</td>
+            <td>@Html.TextBoxFor(m => m.Region, new { @class = "form-control" })@Html.ValidationMessageFor(m => m.Region)</td>
+            <td>@Html.LabelFor(m => m.PostalCode)</td>
+            <td>@Html.TextBoxFor(m => m.PostalCode, new { @class = "form-control" })@Html.ValidationMessageFor(m => m.PostalCode)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.Country)</td>
+            <td>@Html.TextBoxFor(m => m.Country, new { @class = "form-control" })@Html.ValidationMessageFor(m => m.Country)</td>
+            <td>@Html.LabelFor(m => m.Phone)</td>
+            <td>@Html.TextBoxFor(m => m.Phone, new { @class = "form-control" })@Html.ValidationMessageFor(m => m.Phone)</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.Fax)</td>
+            <td>@Html.TextBoxFor(m => m.Fax, new { @class = "form-control" })@Html.ValidationMessageFor(m => m.Fax)</td>
+        </tr>
+    </table>
+}
+
+    <div class="row">
+        <div class="col-md-2">
+            <button class="btn btn-success btn-block" id="btnadd">新增</button>
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-success btn-block" id="btnQuery">查詢</button>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-success btn-block" id="btnClear">清除</button>
+            </div>
+        </div>
+            <div id="grid"></div>
+            <div id="AddWindow"></div>

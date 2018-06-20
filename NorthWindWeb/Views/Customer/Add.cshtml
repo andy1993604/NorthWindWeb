@@ -1,0 +1,16 @@
+﻿@model NorthWindWeb.Models.Customer
+
+@{
+    Layout = "~/Views/Shared/_LayoutNorthWind.cshtml";
+    ViewBag.Title = "Add";
+}
+<script>      
+
+
+    if ("@ViewBag.IsValid".length > 0) {
+
+                alert("新增失敗");
+            }
+        });
+</script>
+

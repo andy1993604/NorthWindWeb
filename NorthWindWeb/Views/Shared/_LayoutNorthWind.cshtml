@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/Kendo")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("南風進銷存", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="navbar-text">Hi! @ViewBag.UserName</li>
+                        <li>@Html.ActionLink("登出", "Logout", "User", new { area = "" }, null)</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        <div class="row">
+            <div class="col-md-2">
+                @{
+                    Html.RenderAction("Menu", "Core");
+                }
+            </div>
+            <div class="col-md-8">
+                @RenderBody()
+            </div>
+        </div>
+        <footer>
+            <p>&copy; @DateTime.Now.Year – PIC MVC課堂實作-@ViewBag.UserName</p>
+        </footer>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/validate")
+    @Scripts.Render("~/bundles/Kendo")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+
